@@ -1,7 +1,5 @@
 import { Link } from 'react-router-dom';
 import './App.css'
-import HelloWorld from './components/HelloWorld'
-import React, { useState } from 'react';
 import recipesData from './data/recipes.json'
 
 function Header() {
@@ -17,22 +15,29 @@ function Header() {
 export { Header };
 
 function App() {
-  return (  
+  return (
     <>
       <h1> Ghezali Mohamed </h1>
-      {recipesData.recipes.map((recipe) =>
-                <div key={recipe.id}>
-                    <h2>{recipe.name}</h2>
-                      <Link to={`/recipes/${recipe.id}`}>
-                        {recipe.name}
-                      </Link>
-                    <p>Temps de préparation : {recipe.prepTimeMinutes} minutes</p>
-                    <img src={recipe.image} />
-                </div>
-            )}
+      <div className="recipes-grid">
+
+        {recipesData.recipes.map((recipe) =>
+          <div className="recipe-card" key={recipe.id}>
+            <h2>
+              <Link to={`/recipes/${recipe.id}`}>
+                {recipe.name}
+              </Link>
+            </h2>
+
+            <p>Temps de préparation : {recipe.prepTimeMinutes} minutes</p>
+
+            <img src={recipe.image} />
+          </div>
+        )}
+
+      </div>
     </>
   );
 
-} 
+}
 
 export default App

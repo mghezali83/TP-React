@@ -6,9 +6,11 @@ import App from './App.tsx'
 import Header from './components/Header.tsx';
 import { Outlet } from 'react-router-dom';
 import Recipes from './pages/Recipes.tsx';
-import RecipesNames from './pages/UserNames.tsx'
 import UserNames from './pages/UserNames.tsx';
 import Login from './pages/Login.tsx';
+import Profile from './pages/Profile.tsx';
+import RecipeNames from './pages/RecipeNames.tsx';
+import NotFound from './pages/NotFound.tsx';
 
 const Layout = () => (
   <>
@@ -16,30 +18,40 @@ const Layout = () => (
     <Outlet />
   </>
 )
-const router = createBrowserRouter([
-  {
-    element: <Layout />,
-    children: [
+const router = createBrowserRouter([{
+  element: <Layout />,
+  children: [
 
-      {
-        path: "/",
-        element: <App />,
-      },
-      {
-        path: "/recipes",
-        element: <Recipes />,
-      },
-      {
-        path: "/user/:id",
-        element: <UserNames />
-      },
-      {
-        path: "/login",
-        element: <Login />
-      }
-    ]
-  }
-]);
+    {
+      path: "/",
+      element: <App />,
+    },
+    {
+      path: "/userList",
+      element: <Recipes />,
+    },
+    {
+      path: "/recipes/:id",
+      element: <RecipeNames />
+    },
+    {
+      path: "/user/:id",
+      element: <UserNames />
+    },
+    {
+      path: "/login",
+      element: <Login />
+    },
+    {
+      path: "/profile/:id",
+      element: <Profile />
+    },
+    {
+      path: "*",
+      element: <NotFound />
+    }
+  ]
+}]);
 
 createRoot(document.getElementById('root')!).render(
   <RouterProvider router={router} />

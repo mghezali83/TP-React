@@ -195,3 +195,107 @@ img {
 .recipe-image {
   text-align: center;
 }
+
+.Header ul {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  list-style: none;
+  padding: 20px;
+}
+
+.Header a {
+  text-decoration: none;
+}
+
+.recipes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+  padding: 30px;
+}
+
+.recipe-card {
+  text-align: center;
+}
+
+.recipe-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.users-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 30px;
+  padding: 30px;
+}
+
+.user-card {
+  text-align: center;
+}
+
+.user-card img {
+  width: 128px;
+  height: 128px;
+  object-fit: cover;
+}
+
+.user-image {
+  text-align: center;
+}
+
+.user-image img {
+  width: 128px;
+  height: 128px;
+  object-fit: contain;
+}
+
+.profile {
+  text-align: center;
+  padding: 30px;
+}
+
+.profile img {
+  width: 128px;
+  height: 128px;
+  object-fit: contain;
+}
+
+.profile ul {
+  list-style: none;
+  padding: 0;
+  margin: 20px auto;
+  max-width: 500px;
+  text-align: left;
+}
+
+.profile li {
+  margin-bottom: 10px;
+}
+
+.login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.login input {
+  width: 250px;
+  padding: 10px;
+}
+
+.login button {
+  padding: 10px 25px;
+}
+
+.not-found {
+  text-align: center;
+  padding: 50px;
+}
+
+.not-found h1 {
+  font-size: 60px;
+}
