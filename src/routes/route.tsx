@@ -9,6 +9,7 @@ import Profile from "../pages/Profile";
 import Favorites from "../pages/favorites";
 import Quote from "../pages/citation";
 import Posts from "../pages/Posts";
+import PostDetails from "../pages/PostDetails";
 
 import GuestRoute from "../routes/GestRoutes";
 import PrivateRoute from "../routes/PrivateRoute";
@@ -74,6 +75,10 @@ const routes = [
             {
                 path: "/posts",
                 element: <Posts />,
+            },
+            {
+                path: "/posts/:id",
+                element: <PostDetails />,
             },
         ],
     },
