@@ -5,7 +5,14 @@ import App from "../App";
 import UserList from "../pages/UserList";
 import User from "../pages/User";
 import Login from "../pages/Login";
+import Profile from "../pages/Profile";
+import Favorites from "../pages/favorites";
+import Quote from "../pages/citation";
+import Posts from "../pages/Posts";
+
 import GuestRoute from "../routes/GestRoutes";
+import PrivateRoute from "../routes/PrivateRoute";
+import RecipeNames from "../pages/RecipeNames";
 
 function Layout() {
     return (
@@ -29,6 +36,10 @@ const routes = [
                 element: <UserList />,
             },
             {
+                path: "/recipes/:id",
+                element: <RecipeNames />,
+            },
+            {
                 path: "/user/:userId",
                 element: <User />,
             },
@@ -39,6 +50,30 @@ const routes = [
                         <Login />
                     </GuestRoute>
                 ),
+            },
+            {
+                path: "/profile",
+                element: (
+                    <PrivateRoute>
+                        <Profile />
+                    </PrivateRoute>
+                ),
+            },
+            {
+                path: "/favoris",
+                element: (
+                    <PrivateRoute>
+                        <Favorites />
+                    </PrivateRoute>
+                ),
+            },
+            {
+                path: "/citation",
+                element: <Quote />,
+            },
+            {
+                path: "/posts",
+                element: <Posts />,
             },
         ],
     },

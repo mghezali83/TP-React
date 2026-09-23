@@ -25,9 +25,15 @@ function Header() {
 
                 {loggedUser ? (
                     <>
+                        <Link to="/profile">Mon Profil</Link>
+                        {" | "}
+                        <Link to="/favoris">Mes Favoris</Link>
+                        {" | "}
                         <span>Bonjour {loggedUser.firstName}</span>
                         {" | "}
-                        <button onClick={handleLogout}>Déconnexion</button>
+                        <button onClick={handleLogout}>
+                            Déconnexion
+                        </button>
                     </>
                 ) : (
                     <Link to="/login">Login</Link>
