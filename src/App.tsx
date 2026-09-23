@@ -1,43 +1,52 @@
-import { Link } from 'react-router-dom';
-import './App.css'
-import recipesData from './data/recipes.json'
+import axios from "axios";
+import "./App.css";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
-function Header() {
-  return (
-    <nav className="Header">
-      <ul>
-        <li><Link to="/">Home</Link></li>
-        <li><Link to="/userList">Go to user</Link></li>
-      </ul>
-    </nav>
-  );
+interface Recipe {
+  id: number;
+  name: string;
+  image: string;
+  prepTimeMinutes: number;
+  cookTimeMinutes: number;
 }
-export { Header };
 
 function App() {
+  const [recipes, setRecipes] = useState<Recipe[]>([]);
+
+  useEffect(() => {
+    axios
+      .get("https://dummyjson.com/recipes")
+      .then((response) => {
+        setRecipes(response.data.recipes);
+      });
+  }, []);
+
   return (
     <>
-      <h1> Ghezali Mohamed </h1>
+      <h1>Recipes</h1>
+
       <div className="recipes-grid">
-
-        {recipesData.recipes.map((recipe) =>
+        {recipes.map((recipe) => (
           <div className="recipe-card" key={recipe.id}>
-            <h2>
-              <Link to={`/recipes/${recipe.id}`}>
-                {recipe.name}
-              </Link>
-            </h2>
+            <Link to={`/recipes/${recipe.id}`}>
+              <img src={recipe.image} alt={recipe.name} />
 
-            <p>Temps de préparation : {recipe.prepTimeMinutes} minutes</p>
+              <h2>{recipe.name}</h2>
 
-            <img src={recipe.image} />
+              <p>
+                Préparation : {recipe.prepTimeMinutes} min
+              </p>
+
+              <p>
+                Cuisson : {recipe.cookTimeMinutes} min
+              </p>
+            </Link>
           </div>
-        )}
-
+        ))}
       </div>
     </>
   );
-
 }
 
-export default App
+export default App;

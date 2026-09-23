@@ -8,12 +8,23 @@ interface PrivateRouteProps {
 }
 
 const PrivateRoute = ({ children }: PrivateRouteProps) => {
-    const loggedUser = useSelector((state: RootState) => state.auth.loggedUser);
-    const loading = useSelector((state: RootState) => state.loading.value);
+    const loggedUser = useSelector(
+        (state: RootState) => state.auth.loggedUser
+    );
 
-    if (loading) return <div>Loading ...</div>
+    const loading = useSelector(
+        (state: RootState) => state.loading.value
+    );
 
-    return loggedUser ? <>{children}</> : <Navigate to="/" replace />;
+    if (loading) {
+        return <div>Loading ...</div>;
+    }
+
+    return loggedUser ? (
+        <>{children}</>
+    ) : (
+        <Navigate to="/login" replace />
+    );
 };
 
 export default PrivateRoute;

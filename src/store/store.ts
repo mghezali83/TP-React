@@ -1,16 +1,19 @@
-import { configureStore } from '@reduxjs/toolkit'
-import userReducer from './reducers/user'
-import authReducer from './reducers/auth'
-import loadingReducer from './reducers/loading'
+import { configureStore } from "@reduxjs/toolkit";
+
+import userReducer from "./reducers/user";
+import authReducer from "./reducers/auth";
+import loadingReducer from "./reducers/loading";
+import favoritesReducer from "./reducers/favorites";
 
 export const store = configureStore({
     reducer: {
         user: userReducer,
         auth: authReducer,
-        loading: loadingReducer
+        loading: loadingReducer,
+        favorites: favoritesReducer,
     },
-})
+});
 
-export type AppStore = typeof store
-export type RootState = ReturnType<AppStore['getState']>
-export type AppDispatch = AppStore['dispatch']
+export type AppStore = typeof store;
+export type RootState = ReturnType<AppStore["getState"]>;
+export type AppDispatch = AppStore["dispatch"];

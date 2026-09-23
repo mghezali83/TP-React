@@ -1,49 +1,31 @@
-import { useParams } from "react-router-dom";
-import usersData from "../data/users.json";
-import NotFound from "./NotFound";
+import { useSelector } from "react-redux";
+import type { RootState } from "../store/store";
 
 function Profile() {
-    let { id } = useParams();
+    const loggedUser = useSelector(
+        (state: RootState) => state.auth.loggedUser
+    );
 
-    let user = usersData.users.find((user) => {
-        return user.id.toString() === id;
-    });
-
-    if (!user) {
-        return <NotFound />;
+    if (!loggedUser) {
+        return <p>Utilisateur non connecté</p>;
     }
 
     return (
         <>
-            <div className="Profile">
-                <h1>{user?.firstName} {user?.lastName}</h1>
-                <img src={user.image} />
+            <h1>Mon Profil</h1>
 
-                <ul>
-                    <li>Username : {user.username}</li>
-                    <li>Email : {user.email}</li>
-                    <li>Téléphone : {user.phone}</li>
-                    <li>Age : {user.age}</li>
-                    <li>Genre : {user.gender}</li>
-                    <li>Date de naissance : {user.birthDate}</li>
-                    <li>Rôle : {user.role}</li>
-                </ul>
+            <img
+                src={loggedUser.image}
+                alt={loggedUser.username}
+                width="150"
+            />
 
-                <h2>Adresse</h2>
-                <ul>
-                    <li>Adresse : {user.address.address}</li>
-                    <li>Ville : {user.address.city}</li>
-                    <li>Code postal : {user.address.postalCode}</li>
-                    <li>Pays : {user.address.country}</li>
-                </ul>
-
-                <h2>Entreprise</h2>
-                <ul>
-                    <li>Nom : {user.company.name}</li>
-                    <li>Département : {user.company.department}</li>
-                    <li>Poste : {user.company.title}</li>
-                </ul>
-            </div>
+            <p>Prénom : {loggedUser.firstName}</p>
+            <p>Nom : {loggedUser.lastName}</p>
+            <p>Username : {loggedUser.username}</p>
+            <p>Email : {loggedUser.email}</p>
+            <p>Téléphone : {loggedUser.phone}</p>
+            <p>Âge : {loggedUser.age}</p>
         </>
     );
 }
