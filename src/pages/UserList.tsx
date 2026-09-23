@@ -10,8 +10,7 @@ function UserList() {
             {users.map((user) => (
                 <div key={user.id}>
                     <Link to={`/user/${user.id}`}>
-                        <p>name : {user.firstName}</p>
-                        <p>last name : {user.lastName}</p>
+                        <p>{user.username}</p>
                     </Link>
                 </div>
             ))}

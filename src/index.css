@@ -65,6 +65,51 @@
 
 body {
   margin: 0;
+  background: var(--code-bg);
+}
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  border-bottom: 1px solid var(--border);
+  background: color-mix(in srgb, var(--bg) 92%, transparent);
+  backdrop-filter: blur(12px);
+}
+
+header nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  min-height: 58px;
+  padding: 8px 24px;
+  box-sizing: border-box;
+  color: var(--text);
+  font-size: 15px;
+}
+
+header nav a {
+  color: var(--text-h);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+header nav a:hover,
+header nav a:focus-visible {
+  color: var(--accent);
+}
+
+header nav button {
+  padding: 7px 12px;
+  border: 1px solid var(--accent-border);
+  border-radius: 6px;
+  color: var(--accent);
+  background: var(--accent-bg);
+  cursor: pointer;
+  font: inherit;
+  font-size: 14px;
 }
 
 h1,
