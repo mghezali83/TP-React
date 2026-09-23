@@ -20,6 +20,8 @@ function Header() {
             <nav>
                 <Link to="/">Home</Link>
                 {" | "}
+                <Link to="/posts">Blog</Link>
+                {" | "}
                 <Link to="/userList">User List</Link>
                 {" | "}
 

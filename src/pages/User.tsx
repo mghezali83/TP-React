@@ -1,11 +1,13 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import type { User as UserType } from "../types/user";
 
 function User() {
     const { id } = useParams();
     const [user, setUser] = useState<UserType | null>(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState("");
 
     useEffect(() => {
         (async () => {
@@ -15,14 +17,25 @@ function User() {
                 );
 
                 setUser(response.data);
-            } catch (e) {
-                console.error(e);
+            } catch {
+                setError("Profil introuvable.");
+            } finally {
+                setLoading(false);
             }
         })();
     }, [id]);
 
-    if (!user) {
-        return <p>Chargement...</p>;
+    if (loading) {
+        return <p className="status-message">Chargement du profil...</p>;
+    }
+
+    if (error || !user) {
+        return (
+            <main className="status-message error-message">
+                <p>{error || "Profil introuvable."}</p>
+                <Link to="/userList">Retour aux utilisateurs</Link>
+            </main>
+        );
     }
 
     return (

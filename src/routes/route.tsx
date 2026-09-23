@@ -6,6 +6,10 @@ import UserList from "../pages/UserList";
 import User from "../pages/User";
 import Login from "../pages/Login";
 import GuestRoute from "../routes/GestRoutes";
+import RecipeDetail from "../pages/RecipeDetail";
+import Blog from "../pages/Blog";
+import PostDetail from "../pages/PostDetail";
+import NotFound from "../pages/NotFound";
 
 function Layout() {
     return (
@@ -25,6 +29,18 @@ const routes = [
                 element: <App />,
             },
             {
+                path: "/recipes/:id",
+                element: <RecipeDetail />,
+            },
+            {
+                path: "/posts",
+                element: <Blog />,
+            },
+            {
+                path: "/posts/:id",
+                element: <PostDetail />,
+            },
+            {
                 path: "/userList",
                 element: <UserList />,
             },
@@ -39,6 +55,10 @@ const routes = [
                         <Login />
                     </GuestRoute>
                 ),
+            },
+            {
+                path: "*",
+                element: <NotFound />,
             },
         ],
     },
