@@ -6,7 +6,7 @@ import UserList from "../pages/UserList";
 import User from "../pages/User";
 import Login from "../pages/Login";
 import Profile from "../pages/Profile";
-import Favorites from "../pages/favorites";
+import Favorites from "../pages/Favorites";
 import Quote from "../pages/citation";
 import Posts from "../pages/Posts";
 import PostDetails from "../pages/PostDetails";

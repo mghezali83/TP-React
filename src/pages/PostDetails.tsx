@@ -1,6 +1,15 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+
+import type { RootState } from "../store/store";
+
+import {
+    setComments,
+    addComment,
+    removeComment,
+} from "../store/reducers/comments";
 
 interface Post {
     id: number;
@@ -27,8 +36,13 @@ interface Comment {
 function PostDetails() {
     const { id } = useParams();
 
+    const dispatch = useDispatch();
+
+    const comments = useSelector(
+        (state: RootState) => state.comments.comments
+    );
+
     const [post, setPost] = useState<Post | null>(null);
-    const [comments, setComments] = useState<Comment[]>([]);
     const [newComment, setNewComment] = useState("");
 
     useEffect(() => {
@@ -41,9 +55,9 @@ function PostDetails() {
         axios
             .get(`https://dummyjson.com/comments/post/${id}`)
             .then((response) => {
-                setComments(response.data.comments);
+                dispatch(setComments(response.data.comments));
             });
-    }, [id]);
+    }, [id, dispatch]);
 
     function handleAddComment() {
         if (newComment.trim() === "") {
@@ -57,7 +71,7 @@ function PostDetails() {
                 userId: 1,
             })
             .then((response) => {
-                const comment = {
+                const comment: Comment = {
                     ...response.data,
                     likes: 0,
                     user: {
@@ -65,12 +79,21 @@ function PostDetails() {
                     },
                 };
 
-                setComments((previousComments) => [
-                    ...previousComments,
-                    comment,
-                ]);
+                dispatch(addComment(comment));
 
                 setNewComment("");
+            });
+    }
+
+    function handleDeleteComment(commentId: number) {
+        const oldComments = [...comments];
+
+        dispatch(removeComment(commentId));
+
+        axios
+            .delete(`https://dummyjson.com/comments/${commentId}`)
+            .catch(() => {
+                dispatch(setComments(oldComments));
             });
     }
 
@@ -119,6 +142,14 @@ function PostDetails() {
                     <p>{comment.body}</p>
 
                     <p>Likes : {comment.likes}</p>
+
+                    <button
+                        onClick={() => {
+                            handleDeleteComment(comment.id);
+                        }}
+                    >
+                        Supprimer
+                    </button>
                 </div>
             ))}
         </>

@@ -1,9 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-
 import userReducer from "./reducers/user";
 import authReducer from "./reducers/auth";
 import loadingReducer from "./reducers/loading";
 import favoritesReducer from "./reducers/favorites";
+import commentsReducer from "./reducers/comments";
 
 export const store = configureStore({
     reducer: {
@@ -11,6 +11,7 @@ export const store = configureStore({
         auth: authReducer,
         loading: loadingReducer,
         favorites: favoritesReducer,
+        comments: commentsReducer,
     },
 });
 
