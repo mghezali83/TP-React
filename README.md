@@ -1,32 +1,100 @@
-# React + TypeScript + Vite
+# Application React - TP de groupe
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+## Présentation
 
-Currently, two official plugins are available:
+Application web développée avec React et TypeScript dans le cadre du TP de groupe.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+L'application permet de consulter des recettes, gérer des favoris, consulter les profils utilisateurs et utiliser un espace Blog avec des articles et des commentaires.
 
-## React Compiler
+Les données sont principalement récupérées depuis l'API DummyJSON.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the Oxlint configuration
+## Fonctionnalités
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+### Authentification et utilisateurs
 
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
-```
+- Connexion avec l'API DummyJSON
+- Sauvegarde du token dans le localStorage
+- Déconnexion
+- Annuaire des utilisateurs
+- Affichage du profil de l'utilisateur connecté
+- Protection des routes privées
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+### Recettes
+
+- Affichage des recettes sur la page d'accueil
+- Affichage du nom, de l'image et des temps de préparation et de cuisson
+- Page détaillée d'une recette
+- Affichage des ingrédients
+- Affichage des instructions
+
+### Favoris
+
+- Ajout d'une recette aux favoris
+- Retrait d'une recette des favoris
+- Gestion des favoris avec Redux
+- Page dédiée aux favoris
+- Accès aux détails des recettes depuis les favoris
+- Page des favoris protégée
+
+### Blog
+
+- Liste des articles
+- Page détaillée d'un article
+- Affichage des tags, réactions et vues
+- Création d'un article
+- Suppression d'un article
+- Affichage des commentaires
+- Ajout d'un commentaire
+- Suppression d'un commentaire
+- Gestion des articles et commentaires avec Redux
+- Mise à jour immédiate de l'interface après les actions
+
+### Citation du jour
+
+- Récupération des citations depuis l'API DummyJSON
+- Du 1er au 30 du mois : citation correspondant au numéro du jour
+- Le 31 du mois : sélection aléatoire d'une citation
+
+### Navigation et interface
+
+- Header présent sur les différentes pages
+- Navigation entre les fonctionnalités
+- Gestion des routes privées
+- Gestion des erreurs 404
+- Interface responsive
+- Design CSS commun à l'application
+
+---
+## Répartition des tâches
+
+### Mohamed
+- Authentification
+- Annuaire des utilisateurs
+- Profil utilisateur
+- Recettes
+- Commentaires
+- Citation du jour
+- Header et navigation
+- CSS et responsive
+
+### Leyth
+- Favoris avec Redux
+- Page des favoris
+- Ajout et retrait des favoris
+- Routes privées
+- Protection des accès
+- Blog
+
+## Technologies utilisées
+
+- React
+- TypeScript
+- React Router
+- Redux Toolkit
+- React Redux
+- Axios
+- Vite
+- CSS
+- API DummyJSON

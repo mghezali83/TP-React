@@ -22,6 +22,10 @@ function Header() {
                 {" | "}
                 <Link to="/userList">User List</Link>
                 {" | "}
+                <Link to="/posts">Blog</Link>
+                {" | "}
+                <Link to="/citation">Citation</Link>
+                {" | "}
 
                 {loggedUser ? (
                     <>

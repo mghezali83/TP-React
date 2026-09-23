@@ -5,11 +5,13 @@ import App from "../App";
 import UserList from "../pages/UserList";
 import User from "../pages/User";
 import Login from "../pages/Login";
+import NotFound from "../pages/NotFound";
 import Profile from "../pages/Profile";
 import Favorites from "../pages/Favorites";
 import Quote from "../pages/citation";
 import Posts from "../pages/Posts";
 import PostDetails from "../pages/PostDetails";
+import CreatePost from "../pages/CreatePost";
 
 import GuestRoute from "../routes/GestRoutes";
 import PrivateRoute from "../routes/PrivateRoute";
@@ -43,6 +45,10 @@ const routes = [
             {
                 path: "/user/:userId",
                 element: <User />,
+            },
+            {
+                path: "*",
+                element: <NotFound />,
             },
             {
                 path: "/login",
@@ -79,6 +85,10 @@ const routes = [
             {
                 path: "/posts/:id",
                 element: <PostDetails />,
+            },
+            {
+                path: "/posts/create",
+                element: <CreatePost />,
             },
         ],
     },

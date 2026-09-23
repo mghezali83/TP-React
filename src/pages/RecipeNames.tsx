@@ -28,6 +28,10 @@ function RecipeNames() {
         (state: RootState) => state.favorites.favorites
     );
 
+    const loggedUser = useSelector(
+        (state: RootState) => state.auth.loggedUser
+    );
+
     const [recipe, setRecipe] = useState<Recipe | null>(null);
     const [loading, setLoading] = useState(true);
     const [notFound, setNotFound] = useState(false);
@@ -73,11 +77,13 @@ function RecipeNames() {
         <>
             <h1>{recipe.name}</h1>
 
-            <button onClick={handleFavorite}>
-                {isFavorite
-                    ? "Retirer des favoris"
-                    : "Ajouter aux favoris"}
-            </button>
+            {loggedUser && (
+                <button onClick={handleFavorite}>
+                    {isFavorite
+                        ? "Retirer des favoris"
+                        : "Ajouter aux favoris"}
+                </button>
+            )}
 
             <div className="recipe-image">
                 <img src={recipe.image} alt={recipe.name} />
