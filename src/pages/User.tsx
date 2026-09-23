@@ -4,14 +4,14 @@ import { useParams } from "react-router-dom";
 import type { User as UserType } from "../types/user";
 
 function User() {
-    const { id } = useParams();
+    const { userId } = useParams();
     const [user, setUser] = useState<UserType | null>(null);
 
     useEffect(() => {
         (async () => {
             try {
                 const response = await axios.get<UserType>(
-                    `https://dummyjson.com/users/${id}`
+                    `https://dummyjson.com/users/${userId}`
                 );
 
                 setUser(response.data);
@@ -19,7 +19,7 @@ function User() {
                 console.error(e);
             }
         })();
-    }, [id]);
+    }, [userId]);
 
     if (!user) {
         return <p>Chargement...</p>;
