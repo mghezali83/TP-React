@@ -1,47 +1,56 @@
+import axios from "axios";
 import { useState } from "react";
-import usersData from "../data/users.json";
-import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setLoggedUser } from "../store/reducers/auth";
 
 function Login() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const [error, setError] = useState("");
-    const navigate = useNavigate();
+    const [message, setMessage] = useState("");
 
-    function handleLogin() {
-        let user = usersData.users.find((user) => {
-            return user.username === username && user.password === password;
-        });
+    const dispatch = useDispatch();
 
-        if (user) {
-            navigate(`/profile/${user.id}`);
-        }
-        else {
-            setError("Identifiant ou mot de passe incorrect");
+    async function login() {
+        try {
+            const response = await axios.post(
+                "https://dummyjson.com/auth/login",
+                {
+                    username: username,
+                    password: password,
+                }
+            );
+
+            localStorage.setItem("token", response.data.accessToken);
+
+            dispatch(setLoggedUser(response.data));
+
+            setMessage("Login success");
+        } catch {
+            setMessage("Login fail");
         }
     }
 
     return (
         <>
-            <div className="login">
-                <h1>Login</h1>
+            <h1>Login</h1>
 
-                <input
-                    type="text"
-                    placeholder="Username"
-                    onChange={(event) => setUsername(event.target.value)}
-                />
+            <input
+                type="text"
+                placeholder="Username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+            />
 
-                <input
-                    type="password"
-                    placeholder="Password"
-                    onChange={(event) => setPassword(event.target.value)}
-                />
+            <input
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+            />
 
-                <button onClick={handleLogin}>Login</button>
+            <button onClick={login}>Login</button>
 
-                {error && <p>{error}</p>}
-            </div>
+            <p>{message}</p>
         </>
     );
 }

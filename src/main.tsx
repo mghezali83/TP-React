@@ -1,58 +1,65 @@
-import { createBrowserRouter } from 'react-router-dom'
-import { createRoot } from 'react-dom/client';
-import { RouterProvider } from 'react-router-dom';
-import './index.css'
-import App from './App.tsx'
-import Header from './components/Header.tsx';
-import { Outlet } from 'react-router-dom';
-import Recipes from './pages/Recipes.tsx';
-import UserNames from './pages/UserNames.tsx';
-import Login from './pages/Login.tsx';
-import Profile from './pages/Profile.tsx';
-import RecipeNames from './pages/RecipeNames.tsx';
-import NotFound from './pages/NotFound.tsx';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import axios from "axios";
 
-const Layout = () => (
-  <>
-    <Header />
-    <Outlet />
-  </>
-)
-const router = createBrowserRouter([{
-  element: <Layout />,
-  children: [
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
 
-    {
-      path: "/",
-      element: <App />,
-    },
-    {
-      path: "/userList",
-      element: <Recipes />,
-    },
-    {
-      path: "/recipes/:id",
-      element: <RecipeNames />
-    },
-    {
-      path: "/user/:id",
-      element: <UserNames />
-    },
-    {
-      path: "/login",
-      element: <Login />
-    },
-    {
-      path: "/profile/:id",
-      element: <Profile />
-    },
-    {
-      path: "*",
-      element: <NotFound />
-    }
-  ]
-}]);
+import { Provider } from "react-redux";
+import { store } from "./store/store";
 
-createRoot(document.getElementById('root')!).render(
-  <RouterProvider router={router} />
-)
+import routes from "./routes/route";
+
+import type { User as UserType } from "./types/user";
+import { setUsers } from "./store/reducers/user";
+import { setLoggedUser } from "./store/reducers/auth";
+import { setLoading } from "./store/reducers/loading";
+
+import "./index.css";
+
+interface UsersResponse {
+  users: UserType[];
+}
+
+const getUsers = async () => {
+  const url = "https://dummyjson.com/users";
+
+  const response = await axios.get<UsersResponse>(url);
+
+  store.dispatch(setUsers(response.data.users));
+};
+
+const getLoggedUser = async () => {
+  try {
+    const url = "https://dummyjson.com/auth/me";
+
+    const response = await axios.get(url, {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+
+    store.dispatch(setLoggedUser(response.data));
+  } catch {
+    localStorage.removeItem("token");
+    store.dispatch(setLoggedUser(null));
+  }
+};
+
+Promise.all([getUsers(), getLoggedUser()])
+  .finally(() => {
+    store.dispatch(setLoading(false));
+  });
+
+const router = createBrowserRouter(routes);
+
+ReactDOM.createRoot(document.getElementById("root")!).render(
+  <React.StrictMode>
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
+  </React.StrictMode>
+);
